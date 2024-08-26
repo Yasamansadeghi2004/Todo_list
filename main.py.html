@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>main.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cc7832;}
+.s1 { color: #a9b7c6;}
+.s2 { color: #6a8759;}
+.s3 { color: #6897bb;}
+</style>
+</head>
+<body bgcolor="#2b2b2b">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+main.py</font>
+</center></td></tr></table>
+<pre><span class="s0">from </span><span class="s1">tkinter </span><span class="s0">import </span><span class="s1">*</span>
+<span class="s0">from </span><span class="s1">tkinter </span><span class="s0">import </span><span class="s1">messagebox</span>
+
+
+<span class="s0">class </span><span class="s1">TodoListApp:</span>
+    <span class="s0">def </span><span class="s1">__init__(self</span><span class="s0">, </span><span class="s1">root):</span>
+        <span class="s1">self.root = root</span>
+        <span class="s1">self.root.title(</span><span class="s2">&quot;To-Do List App&quot;</span><span class="s1">)</span>
+        <span class="s1">self.root.geometry(</span><span class="s2">&quot;500x400&quot;</span><span class="s1">)</span>
+        <span class="s1">self.root.config(bg=</span><span class="s2">&quot;light blue&quot;</span><span class="s1">)</span>
+        <span class="s1">self.tasks = []</span>
+
+        <span class="s1">self.task_entry = Entry(root</span><span class="s0">, </span><span class="s1">width=</span><span class="s3">30</span><span class="s0">, </span><span class="s1">font=(</span><span class="s2">'Arial'</span><span class="s0">, </span><span class="s3">14</span><span class="s1">))</span>
+        <span class="s1">self.task_entry.grid(row=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">column=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">padx=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s3">10</span><span class="s1">)</span>
+
+        <span class="s1">add_button = Button(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s2">&quot;Add Task&quot;</span><span class="s0">, </span><span class="s1">command=self.add_task</span><span class="s0">,</span>
+                            <span class="s1">font=(</span><span class="s2">'Arial'</span><span class="s0">, </span><span class="s3">12</span><span class="s1">)</span><span class="s0">, </span><span class="s1">bg=</span><span class="s2">&quot;gray&quot;</span><span class="s0">, </span><span class="s1">fg=</span><span class="s2">&quot;black&quot;</span><span class="s1">)</span>
+        <span class="s1">add_button.grid(row=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">column=</span><span class="s3">1</span><span class="s0">, </span><span class="s1">padx=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s3">10</span><span class="s1">)</span>
+
+        <span class="s1">self.task_listbox = Listbox(root</span><span class="s0">, </span><span class="s1">width=</span><span class="s3">40</span><span class="s0">, </span><span class="s1">height=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">font=(</span><span class="s2">'Arial'</span><span class="s0">, </span><span class="s3">12</span><span class="s1">)</span><span class="s0">,</span>
+                                    <span class="s1">bg=</span><span class="s2">&quot;white&quot;</span><span class="s0">, </span><span class="s1">fg=</span><span class="s2">&quot;black&quot;</span><span class="s0">, </span><span class="s1">selectbackground=</span><span class="s2">&quot;#3498db&quot;</span><span class="s1">)</span>
+        <span class="s1">self.task_listbox.grid(row=</span><span class="s3">1</span><span class="s0">, </span><span class="s1">column=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">columnspan=</span><span class="s3">2</span><span class="s0">, </span><span class="s1">padx=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s3">10</span><span class="s1">)</span>
+
+        <span class="s1">remove_button = Button(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s2">&quot;Remove Task&quot;</span><span class="s0">, </span><span class="s1">command=self.remove_task</span><span class="s0">,</span>
+                               <span class="s1">font=(</span><span class="s2">'Arial'</span><span class="s0">, </span><span class="s3">12</span><span class="s1">)</span><span class="s0">, </span><span class="s1">bg=</span><span class="s2">&quot;gray&quot;</span><span class="s0">, </span><span class="s1">fg=</span><span class="s2">&quot;black&quot;</span><span class="s1">)</span>
+        <span class="s1">remove_button.grid(row=</span><span class="s3">2</span><span class="s0">, </span><span class="s1">column=</span><span class="s3">0</span><span class="s0">, </span><span class="s1">padx=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">sticky=</span><span class="s2">&quot;ew&quot;</span><span class="s1">)</span>
+
+        <span class="s1">complete_button = Button(root</span><span class="s0">, </span><span class="s1">text=</span><span class="s2">&quot;Complete Task&quot;</span><span class="s0">, </span><span class="s1">command=self.complete_task</span><span class="s0">,</span>
+                                 <span class="s1">font=(</span><span class="s2">'Arial'</span><span class="s0">, </span><span class="s3">12</span><span class="s1">)</span><span class="s0">, </span><span class="s1">bg=</span><span class="s2">&quot;gray&quot;</span><span class="s0">, </span><span class="s1">fg=</span><span class="s2">&quot;black&quot;</span><span class="s1">)</span>
+        <span class="s1">complete_button.grid(row=</span><span class="s3">2</span><span class="s0">, </span><span class="s1">column=</span><span class="s3">1</span><span class="s0">, </span><span class="s1">padx=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">pady=</span><span class="s3">10</span><span class="s0">, </span><span class="s1">sticky=</span><span class="s2">&quot;ew&quot;</span><span class="s1">)</span>
+
+        <span class="s1">self.task_listbox.bind(</span><span class="s2">'&lt;Double-Button-1&gt;'</span><span class="s0">, lambda </span><span class="s1">event: self.complete_task())</span>
+
+    <span class="s0">def </span><span class="s1">add_task(self):</span>
+        <span class="s1">task = self.task_entry.get()</span>
+        <span class="s0">if </span><span class="s1">task:</span>
+            <span class="s1">self.tasks.append(task)</span>
+            <span class="s1">self.update_task_list()</span>
+            <span class="s1">self.task_entry.delete(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">END)</span>
+        <span class="s0">else</span><span class="s1">:</span>
+            <span class="s1">messagebox.showerror(</span><span class="s2">&quot;Error&quot;</span><span class="s0">, </span><span class="s2">&quot;Please enter a valid task&quot;</span><span class="s1">)</span>
+
+    <span class="s0">def </span><span class="s1">remove_task(self):</span>
+        <span class="s1">selected_task_index = self.task_listbox.curselection()</span>
+        <span class="s0">if </span><span class="s1">selected_task_index:</span>
+            <span class="s1">self.tasks.pop(selected_task_index[</span><span class="s3">0</span><span class="s1">])</span>
+            <span class="s1">self.update_task_list()</span>
+
+    <span class="s0">def </span><span class="s1">complete_task(self):</span>
+        <span class="s1">selected_task_index = self.task_listbox.curselection()</span>
+        <span class="s0">if </span><span class="s1">selected_task_index:</span>
+            <span class="s1">completed_task = self.tasks.pop(selected_task_index[</span><span class="s3">0</span><span class="s1">])</span>
+            <span class="s1">completed_task = </span><span class="s2">f&quot;[Done] </span><span class="s0">{</span><span class="s1">completed_task</span><span class="s0">}</span><span class="s2">&quot;</span>
+            <span class="s1">self.tasks.append(completed_task)</span>
+            <span class="s1">self.update_task_list()</span>
+
+    <span class="s0">def </span><span class="s1">update_task_list(self):</span>
+        <span class="s1">self.task_listbox.delete(</span><span class="s3">0</span><span class="s0">, </span><span class="s1">END)</span>
+        <span class="s0">for </span><span class="s1">task </span><span class="s0">in </span><span class="s1">self.tasks:</span>
+            <span class="s1">self.task_listbox.insert(END</span><span class="s0">, </span><span class="s1">task)</span>
+
+
+<span class="s0">if </span><span class="s1">__name__ == </span><span class="s2">&quot;__main__&quot;</span><span class="s1">:</span>
+    <span class="s1">root = Tk()</span>
+    <span class="s1">app = TodoListApp(root)</span>
+    <span class="s1">root.mainloop()</span>
+</pre>
+</body>
+</html>
